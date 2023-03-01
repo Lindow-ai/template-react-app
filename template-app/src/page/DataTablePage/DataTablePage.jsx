@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import DataTable from '../../components/DataTable';
 import { Button } from "@mui/material";
 import DeletePopin from '../../components/DeletePopin';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const DataTablePage = () => {
 
@@ -10,7 +11,7 @@ const DataTablePage = () => {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [deleteItem, setDeleteItem] = useState(null);
     const [selectedRowIds, setSelectedRowIds] = useState([]);
-
+    const [pageSize, setPageSize] = useState(5);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,23 +59,25 @@ const DataTablePage = () => {
     const columns = [
         ...Object.keys(...reshapeData).map((key) => ({
             field: key,
-            headerName: key,
+            headerName: key.toUpperCase(),
             type: "string",
             flex: 1,
         })),
         {
             field: "actions",
-            headerName: "Actions",
-            width: 120,
+            headerName: "ACTIONS",
+            width: 150,
             sortable: false,
             disableColumnMenu: true,
             renderCell: (params) => (
-                <Button variant="outlined" color="error" onClick={() => handleDeleteButtonClick(params.row)}>
+                <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => handleDeleteButtonClick(params.row)}>
                     Supprimer
                 </Button>
             ),
         },
     ];
+
+    console.log('pageSize', pageSize);
 
     return (
         <div>
@@ -83,6 +86,8 @@ const DataTablePage = () => {
                 columns={columns}
                 data={reshapeData}
                 handleSelectionModelChange={handleSelectionModelChange}
+                setPageSize={setPageSize}
+                pageSize={pageSize}
             />
             <DeletePopin
                 openDeleteDialog={openDeleteDialog}

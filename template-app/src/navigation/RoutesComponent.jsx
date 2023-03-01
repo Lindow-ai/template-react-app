@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// Import des modules et composants nécessaires de React Router et Material-UI
+import { Routes, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import CounterPage from '../page/CounterPage';
 import DataTablePage from '../page/DataTablePage';
@@ -8,6 +9,7 @@ const RoutesComponent = () => {
     return (
         <div>
             <AppBar>
+                {/* Barre de navigation avec les boutons pour naviguer entre les pages */}
                 <Toolbar>
                     <Typography>
                         Mon application
@@ -19,6 +21,7 @@ const RoutesComponent = () => {
             </AppBar>
             <div style={{ marginTop: '80px' }}>
                 <Routes>
+                    {/* Route pour afficher la page Counter */}
                     <Route path="/" element={<CounterPage />} />
                     <Route path="/datatable" element={<DataTablePage />}/>
                     <Route path="/todolist" element={<TodoListPage />} />
@@ -28,4 +31,5 @@ const RoutesComponent = () => {
     )
 }
 
+// Export du composant RoutesComponent pour pouvoir l'utiliser dans d'autres fichiers
 export default RoutesComponent;

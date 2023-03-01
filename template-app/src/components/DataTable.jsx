@@ -1,21 +1,24 @@
 import { DataGrid } from "@mui/x-data-grid";
 
-const DataTable = ({ data, columns, handleSelectionModelChange, selectedRowIds }) => {   
+
+const DataTable = ({ data, columns, handleSelectionModelChange, selectedRowIds, setPageSize, pageSize }) => {   
+
+    console.log('pageSize', pageSize);
 
     return (
         <>
             <div>
                 <DataGrid
                     rows={data}
+                    pageSize={pageSize}
                     columns={columns}
-                    pageSize={5}
-                    rowPerPageOptions={[5]}
                     checkboxSelection
+                    rowsPerPageOptions={[5, 10, 15]}
                     autoHeight
-                    autoPageSize
                     autoWidth={true}
                     onSelectionModelChange={handleSelectionModelChange}
                     selectionModel={selectedRowIds}
+                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 />
             </div>
         </>

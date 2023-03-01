@@ -1,9 +1,14 @@
 import { Typography } from '@mui/material';
+import TodoList from '../../components/ToDoList';
 
 const TodoListPage = () => {
-    console.log('Page ToDoList', 'Page ToDoList');
     return (
-        <Typography>Page de la ToDoList</Typography>
+    <div>
+      <Typography variant="h4" align="center" gutterBottom>
+        Ma ToDoList
+      </Typography>
+      <TodoList />
+    </div>
     )
 }
 
