@@ -3,12 +3,12 @@ import { Typography } from '@mui/material';
 import DataTable from '../../components/DataTable';
 import { Button } from "@mui/material";
 import DeletePopin from '../../components/DeletePopin';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { DisplayItemsContext } from '../../context/DisplayItemsContext';
 import displayItemsReducer from '../../context/displayItemsReducerContext';
-import { DATA_TABLE_PAGE } from '../../DataEditors/PageType';
+import { DATA_TABLE_CONTEXT_EXEMPLE_THREE } from '../../DataEditors/PageType';
+import EditIcon from '@mui/icons-material/Edit';
 
-const DataTablePage = () => {
+const DataTablePageContextOne = () => {
     const { state, dispatch } = useContext(DisplayItemsContext);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -17,12 +17,10 @@ const DataTablePage = () => {
     const [pageSize, setPageSize] = useState(5);
 
     useEffect(() => {
-        displayItemsReducer(DATA_TABLE_PAGE, dispatch);
+        displayItemsReducer(DATA_TABLE_CONTEXT_EXEMPLE_THREE, dispatch);
     }, []);
 
-    const reshapeData = state.data.map(({ id, name, username, email, phone, website }) => ({ id, name, username, email, phone, website }));
-
-    if (state.loading || reshapeData.length === 0) {
+    if (state.loading) {
         return <div>Loading...</div>
     }
 
@@ -54,7 +52,7 @@ const DataTablePage = () => {
 
     // Créer le tableau de colonnes en utilisant les propriétés restantes
     const columns = [
-        ...Object.keys(...reshapeData).map((key) => ({
+        ...Object.keys(...state.data).map((key) => ({
             field: key,
             headerName: key.toUpperCase(),
             type: "string",
@@ -67,8 +65,8 @@ const DataTablePage = () => {
             sortable: false,
             disableColumnMenu: true,
             renderCell: (params) => (
-                <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => handleDeleteButtonClick(params.row)}>
-                    Supprimer
+                <Button variant="outlined" color="warning" startIcon={<EditIcon />} onClick={() => handleDeleteButtonClick(params.row)}>
+                    Editer
                 </Button>
             ),
         },
@@ -78,10 +76,10 @@ const DataTablePage = () => {
 
     return (
         <div>
-            <Typography>Page exemple d'une table</Typography>
+            <Typography>Page exemple d'une table avec l'utilisation d'un context 3</Typography>
             <DataTable
                 columns={columns}
-                data={reshapeData}
+                data={state.data}
                 handleSelectionModelChange={handleSelectionModelChange}
                 setPageSize={setPageSize}
                 pageSize={pageSize}
@@ -90,11 +88,11 @@ const DataTablePage = () => {
                 openDeleteDialog={openDeleteDialog}
                 handleDeleteCancel={handleDeleteCancel}
                 handleDeleteConfirm={handleDeleteConfirm}
-                deleteItem={deleteItem?.username}
-                deleteId="l'utilisateur"
+                deleteItem={deleteItem?.title}
+                deleteId="le titre"
             />
         </div>
     );
 }
 
-export default DataTablePage;
+export default DataTablePageContextOne;
