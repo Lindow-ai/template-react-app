@@ -4,5 +4,5 @@ export const BackApi = {
     dataTablePageContextExemple: "https://jsonplaceholder.typicode.com/posts",
     dataTablePageContextExempleTwo: "https://jsonplaceholder.typicode.com/albums",
     dataTablePageContextExempleThree: "https://jsonplaceholder.typicode.com/photos",
-  },
+  }
 };
